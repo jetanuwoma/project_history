@@ -7,7 +7,7 @@
 
 1. **What are the possible statuses for a project?**  
    *Expected Answer:*  
-   Predefined list:git remote add origin git@github.com:jetanuwoma/project_history.git `Pending`, `In Progress`, `Completed`, `Archived`.
+   Predefined list: `Pending`, `In Progress`, `Completed`, `Archived`.
 
 2. **Can all users perform both actions (comment & status change)?**  
    *Expected Answer:*  
