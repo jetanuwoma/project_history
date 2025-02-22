@@ -16,5 +16,4 @@ class ProjectComment < ApplicationRecord
     def create_project_event
       project.project_events.create!(user: user, eventable: self, event_type: :comment_added, data: { content: content })
     end
-
 end

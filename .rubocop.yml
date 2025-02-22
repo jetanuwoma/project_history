@@ -6,3 +6,17 @@ inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 # # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
 # Layout/SpaceInsideArrayLiteralBrackets:
 #   Enabled: false
+
+# exclude config files from being checked
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'db/seeds.rb'
+    - 'config/routes.rb'
+    - 'config/environments/*.rb'
+    - 'config/initializers/*.rb'
+    - 'config/locales/*.rb'
+    - 'bin/*'
+    - 'script/*'
+    - 'spec/*'
