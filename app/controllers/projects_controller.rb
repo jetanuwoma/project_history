@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_project, only: [ :show, :update ]
 
   def index
     @projects = Project.includes(:last_activity).order(created_at: :desc)
@@ -22,8 +23,21 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def update
+     @project.update(project_params)
+
+     respond_to do |format|
+       format.html { redirect_to @project }
+       format.turbo_stream
+     end
+  end
+
   private
     def project_params
       params.require(:project).permit(:name, :status)
+    end
+
+    def set_project
+      @project = Project.includes(project_events: :user).find(params[:id])
     end
 end

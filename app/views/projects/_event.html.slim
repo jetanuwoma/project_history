@@ -1,0 +1,21 @@
+.event.mb-6.p-4.bg-gray-50.rounded-lg
+  - if event.comment_added?
+    .flex.items-start.gap-3
+      .flex-1
+        .flex.items-center.gap-2.mb-2
+          span.font-medium= event.user.email
+          span.text-gray-500.text-sm= time_ago_in_words(event.created_at) + " ago"
+        p.text-gray-700= event.content
+
+  - elsif event.status_changed?
+    .flex.items-center.gap-3
+      .flex.items-center.gap-2
+        span.text-gray-500 Status changed
+        span class="#{status_color(event.old_status)} px-2 py-1 rounded-full text-sm"
+          = event.old_status.humanize
+        span.text-gray-500 →
+        span class="#{status_color(event.new_status)} px-2 py-1 rounded-full text-sm"
+          = event.new_status.humanize
+      span.text-gray-500.text-sm= event.created_at.strftime("%b %d, %Y %H:%M")
+  - else
+    .text-gray-500 Event type not supported yet

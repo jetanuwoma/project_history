@@ -11,7 +11,7 @@
 
       div
         = f.label :status, "Initial Status", class: "block text-sm font-medium text-gray-700"
-        = f.select :status, options_for_select(Project.statuses.keys.map { |s| [s.humanize, s] }), {}, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        = f.select :status, options_for_select(Project.statuses.except("created").keys.map { |s| [s.humanize, s] }), {}, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
 
     .flex.justify-end.gap-3.mt-8
       = link_to "Cancel", projects_path, class: "px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"

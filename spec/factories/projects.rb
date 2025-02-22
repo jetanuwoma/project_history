@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :project do
     name { "MyString" }
-    status { "MyString" }
+    status { "pending" }
   end
 end

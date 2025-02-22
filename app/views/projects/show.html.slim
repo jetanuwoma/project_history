@@ -1,0 +1,38 @@
+= content_for :title, @project.name
+
+.max-w-4xl.mx-auto
+  .flex.items-center.justify-between.mb-8
+    h1.text-3xl.font-bold= @project.name
+    = turbo_frame_tag "project_status" do
+      span class="px-4 py-2 rounded-full text-sm #{status_color(@project.status)}"
+        = @project.status.humanize
+
+  .grid.gap-8.md:grid-cols-2
+    .bg-white.p-6.rounded-lg.shadow-sm
+      h2.text-lg.font-semibold.mb-4 Update Status
+      = form_with model: @project, data: { turbo_frame: "_top" } do |f|
+        .space-y-4
+          = f.select :status,
+                  options_for_select(Project.statuses.except("created").keys.map { |s| [s.humanize, s] }), {},
+                          class: "w-full rounded-md border-gray-300"
+          = f.submit "Update Status",
+                  class: "w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+
+    .bg-white.p-6.rounded-lg.shadow-sm
+      h2.text-lg.font-semibold.mb-4 Add Comment
+      = form_with model: [@project, ProjectComment.new],
+              data: { turbo_frame: "comments" } do |f|
+        .space-y-4
+          = f.text_area :content,
+                  rows: 4,
+                  class: "w-full rounded-md border-gray-300",
+                  placeholder: "Write your comment..."
+          = f.submit "Post Comment",
+                  class: "w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+
+    .mt-8
+      h2.text-2xl.font-semibold.mb-4 Conversation History
+      #conversation.turbo-frame.space-y-6
+        = render partial: "projects/event",
+                collection: @project.histories.order(created_at: :desc),
+                as: :event

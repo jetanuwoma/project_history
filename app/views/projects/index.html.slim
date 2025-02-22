@@ -3,6 +3,13 @@
     h1.text-3xl.font-bold.text-gray-900 Projects
     = link_to "New Project", new_project_path, class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
 
+    .flex.gap-4.items-center
+      = select_tag :status,
+              options_for_select(Project.statuses.keys.map { |s| [s.humanize, s] }, params[:status]),
+              class: "rounded-lg border-gray-300",
+              onchange: "this.form.submit()"
+      = link_to "Clear", projects_path, class: "text-gray-600 hover:text-gray-800"
+
   .grid.gap-6(class="md:grid-cols-2 lg:grid-cols-3")
     - @projects.each do |project|
       .bg-white.rounded-lg.shadow-md.p-6.hover:shadow-lg.transition-shadow

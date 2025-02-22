@@ -3,7 +3,7 @@ FactoryBot.define do
     project { nil }
     user { nil }
     eventable { nil }
-    event_type { "MyString" }
+    event_type { "comment_added" }
     data { "" }
   end
 end
