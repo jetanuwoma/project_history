@@ -1,0 +1,44 @@
+/ app/views/layouts/application.html.slim
+doctype html
+html
+  head
+    title= content_for(:title) || "Projects"
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    meta name="apple-mobile-web-app-capable" content="yes"
+    meta name="mobile-web-web-app-capable" content="yes"
+    = csrf_meta_tags
+    = csp_meta_tag
+    = yield :head
+
+    / Uncomment for PWA manifest
+    / = tag.link rel: "manifest", href: pwa_manifest_path(format: :json)
+
+    link rel="icon" href="/icon.png" type="image/png"
+    link rel="icon" href="/icon.svg" type="image/svg+xml"
+    link rel="apple-touch-icon" href="/icon.png"
+
+    = stylesheet_link_tag :app, "data-turbo-track": "reload"
+    = javascript_importmap_tags
+
+  body
+    header
+      nav.bg-white.shadow-sm
+        .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
+          .flex.justify-between.h-16
+            .flex.items-center
+              = link_to root_path, class: "flex-shrink-0 flex items-center" do
+                / Add your logo here
+                span.ml-2.text-xl.font-bold.text-gray-900 Projects
+
+            .hidden.sm:ml-6.sm:flex.sm:items-center
+              - if user_signed_in?
+                = button_to "Log out", destroy_user_session_path, method: :delete,
+                        class: "px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg"
+              - else
+                = link_to "Log in", new_user_session_path,
+                        class: "px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg"
+                = link_to "Sign up", new_user_registration_path,
+                        class: "ml-4 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg"
+
+    main.container.mx-auto.mt-12.px-5.flex
+      = yield

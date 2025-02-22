@@ -1,0 +1,31 @@
+.container.mx-auto.px-4.py-8
+  .flex.justify-between.items-center.mb-6
+    h1.text-3xl.font-bold.text-gray-900 Projects
+    = link_to "New Project", new_project_path, class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+
+  .grid.gap-6(class="md:grid-cols-2 lg:grid-cols-3")
+    - @projects.each do |project|
+      .bg-white.rounded-lg.shadow-md.p-6.hover:shadow-lg.transition-shadow
+        .flex.items-center.justify-between.mb-4
+          h2.text-xl.font-semibold.text-gray-800
+            = link_to project.name, project_path(project), class: "hover:text-blue-600"
+          span class="px-3 py-1 rounded-full text-sm #{status_color(project.status)}"
+            = project.status.humanize
+
+        .text-gray-600.mb-4
+          = truncate(project.description, length: 100, separator: ' ') if project.description.present?
+
+        .flex.items-center.justify-between.text-sm.text-gray-500
+          .flex.items-center
+            - if project.last_activity
+              = time_ago_in_words(project.last_activity.created_at)
+              span.ml-1 ago
+            - else
+              | No activity yet
+          .flex.items-center
+            = link_to "View", project_path(project), class: "text-blue-600 hover:text-blue-800"
+
+  - if @projects.empty?
+    .text-center.py-12.bg-gray-50.rounded-lg
+      p.text-gray-500.mb-4 No projects found
+      = link_to "Create your first project", new_project_path, class: "text-blue-600 hover:text-blue-800"
