@@ -2,6 +2,25 @@
 
 
 # Project Conversation History Feature Clarification
+## 🚀 Quick Setup Guide
+
+### Prerequisites
+- Ruby 3.2.x
+- Rails 7.1.x
+- PostgreSQL 14+
+- Node.js 18+
+- Yarn 1.x
+
+### ⚙️ Installation
+
+1. **Clone the repository and run the project**
+   ```bash
+     git clone git@github.com:jetanuwoma/project_history.git
+     cd project_history
+     bundle install
+     yarn install
+     bin/dev
+
 
 ### Questions to Colleagues & Expected Answers
 
